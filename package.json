@@ -8,7 +8,9 @@
     "node": "^12.20.0 || ^14.13.1 || >=16.0.0"
   },
   "scripts": {
-    "start": "nodemon ./src/cli.js --port 4050 --expireAccessToken 120 --expireRefreshToken 300"
+    "start": "npm run dev",
+    "dev": "nodemon ./src/cli.js --port 4050 --expireAccessToken 120 --expireRefreshToken 300",
+    "www": "nodemon ./src/cli.js --port 4050 --expireAccessToken 120 --expireRefreshToken 300"
   },
   "repository": {
     "type": "git",
