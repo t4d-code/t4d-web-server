@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 
 const secret = "secret";
 
@@ -14,7 +14,7 @@ const buildTokenData = (username, userProfile) => ({
   },
 });
 
-module.exports = ({ expireAccessToken, expireRefreshToken }) =>
+export default ({ expireAccessToken, expireRefreshToken }) =>
   async (fastify, options) => {
 
     fastify.post('/login', async (request) => {
@@ -34,7 +34,7 @@ module.exports = ({ expireAccessToken, expireRefreshToken }) =>
 
       const refreshToken = request.headers.authorization.slice(7);
 
-      const tokenData = await new Promise((resolve, reject) => {
+      const unwrappedTokenData = await new Promise((resolve, reject) => {
         jwt.verify(refreshToken, secret, function(err, decoded) {
           if (err) {
             reject(err);
@@ -44,7 +44,7 @@ module.exports = ({ expireAccessToken, expireRefreshToken }) =>
         });
       });
 
-      const tokenData = { data: decoded.data };
+      const tokenData = { data: unwrappedTokenData };
     
       return {
         accessToken: jwt.sign(

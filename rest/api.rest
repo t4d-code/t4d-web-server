@@ -1,0 +1,22 @@
+GET http://localhost:4050/api/colors HTTP/1.1
+
+###
+
+
+GET http://localhost:4050/api/colors HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoiYm9iIiwicm9sZXMiOlsiYWRtaW4iLCJ1c2VyIl19LCJpYXQiOjE2Mzc1NDAxMDQsImV4cCI6MTYzNzU0MDIyNH0.e44UWKpmpmiGk185nuhLnQJCTWymtKdPGmnEbcs3WH4
+
+###
+
+GET http://localhost:4050/api/colors/1 HTTP/1.1
+
+###
+
+POST http://localhost:4050/api/colors HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJuYW1lIjoiYm9iIiwicm9sZXMiOlsidXNlciJdfSwiaWF0IjoxNjM3NDI4ODczLCJleHAiOjE2Mzc1MTUyNzN9.N06X7vBWmZ8EuvJ3fg_UoG7ZSYU0vzmAium3nD-XiXo
+
+{
+  "name": "orange",
+  "hexcode": "ffff00"
+}

@@ -1,19 +1,40 @@
-const auth = require('./plugins/auth');
+import { resolve } from 'path';
+import { Low, JSONFile } from 'lowdb';
+import fastify from 'fastify';
 
-module.exports = async ({
-  port, expireAccessToken, expireRefreshToken,
+import auth from './plugins/auth.js';
+import api from './plugins/api.js';
+
+export default async ({
+  port,
+  expireAccessToken,
+  expireRefreshToken,
+  databaseFileName,
 }) => {
+
+  const app = fastify({ logger: true });
+
   try {
 
-    const fastify = require('fastify')({ logger: true });
+    console.log(databaseFileName);
 
-    fastify.register(auth({ expireAccessToken, expireRefreshToken }));
+    const file = resolve(process.cwd(), databaseFileName)
+    const adapter = new JSONFile(file)
+    const database = new Low(adapter)
+
+    await database.read()
+
+    app.register(auth({ expireAccessToken, expireRefreshToken }));
+    app.register(api({ pluralModelName: 'colors', database }));
+    app.register(api({ pluralModelName: 'cars', database }));
     
-    await fastify.listen(port);
+    await app.listen(port);
   
   } catch (err) {
-    fastify.log.error(err);
+
+    app.log.error(err);
     process.exit(1);
+
   }
 };
 

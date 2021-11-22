@@ -1,7 +1,7 @@
-const chalk = require('chalk')
-const startWebServer = require('../app/index');
+import chalk from 'chalk';
+import startWebServer from '../app/index.js';
 
-module.exports = async (options) => {
-  chalk.blue(`start web server on port ${options.port}`);
+export default async (options) => {
+  chalk.blue`started rest api server on port ${options.port} using ${options.databaseFileName}`;
   await startWebServer(options);
 };
