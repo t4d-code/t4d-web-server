@@ -68,16 +68,19 @@ export default ({ pluralModelName, database }) =>
       apiCollectionPath,
       applyAuthorization(async (request, reply) => {
 
-        const id = Math.max(database.data[pluralModelName].map(element => element.id), 0) + 1;
+        const elementId = Math.max(
+          ...database.data[pluralModelName].map(element => element.id), 0) + 1;
 
-        database.data[pluralModelName].push({
-          id,
+        const newElement = {
+          id: elementId,
           ...request.body
-        });
+        };
+
+        database.data[pluralModelName].push(newElement);
 
         await database.write();
 
-        return request.body;
+        return newElement;
       }));
 
 
